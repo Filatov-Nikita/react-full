@@ -23,11 +23,9 @@ class ArticleList extends Component {
         if(loading) { return  <Loader />} 
         const articleElements = articles.map((article) => 
         <li key = {article.id}>
-            <Article ref = {this.testRef}
-                article = {article} 
-                isOpen = {this.props.openArticleId === article.id} 
-                toogleOpen = {this.props.toogleOpen}/>
-               
+            <NavLink to = {`/articles/${article.id}`}>
+                {article.title}
+            </NavLink>  
         </li>);
         return (
             <ul>
