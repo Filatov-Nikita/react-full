@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import CommentsList from '../CommentsList';
-import toogleOpen from "../../decorators/toogleOpen";
+//import toogleOpen from "../../decorators/toogleOpen";
 import { connect } from "react-redux";
 import { deleteArticles, loadArticle } from "../../AC";
 import Loader from "../Loader";
@@ -12,11 +12,11 @@ import { PropTypes } from "prop-types";
         static propTypes = {
             id: PropTypes.string
         }
-        componentWillReceiveProps() {
-            const {loadArticle, article} = this.props
-            console.log(article);
+        componentDidMount() {
+            //const {loadArticle, article} = this.props
+            console.log(this.props);
             
-            //oadArticle(article.id) 
+            loadArticle(this.props.id) 
         }
 
         render() {
@@ -27,14 +27,14 @@ import { PropTypes } from "prop-types";
                     <h3>
                          {this.props.article.title}
                     </h3>
-                   <button onClick = {this.props.toogleOpen(this.props.article.id)}>{isOpen ? 'Close' : 'Open'}</button>
+                   <button onClick = {this.props.toogleOpen}>{isOpen ? 'Close' : 'Open'}</button>
                    <button onClick = {this.deleteHandle}>delete</button>
                    <CSSTransitionGroup 
                         transitionName = "article"
-                        transitionAppear = {true}
+                        transitionAppear
                         transitionEnterTimeout = {500}
                         transitionLeaveTimeout = {300}
-                        transitionAppearTimeout={1000}
+                        transitionAppearTimeout= {1000}
                    >
                      {this.getBody()}
                    </CSSTransitionGroup>
@@ -61,6 +61,9 @@ import { PropTypes } from "prop-types";
         // }
     }
 
-    export default connect((state, ownProps) => ({
-        article: state.articles.entities.get(ownProps.id)
-    }), {deleteArticles, loadArticle})(Article); 
+    const mapStateToProps = (state, props) => {
+        return {
+            article: state.articles.entities.get(props.id)
+        }
+    }
+    export default connect(mapStateToProps, {deleteArticles, loadArticle})(Article); 
