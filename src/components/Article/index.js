@@ -6,14 +6,22 @@ import { deleteArticles, loadArticle } from "../../AC";
 import Loader from "../Loader";
 import { CSSTransitionGroup } from "react-transition-group";
 import './transition.css';
+import { PropTypes } from "prop-types";
 
     class Article extends Component {
-        componentWillReceiveProps({isOpen, loadArticle, article}) {
-            if(isOpen && !article.text && !article.loading) { loadArticle(article.id) }
+        static propTypes = {
+            id: PropTypes.string
+        }
+        componentWillReceiveProps() {
+            const {loadArticle, article} = this.props
+            console.log(article);
+            
+            //oadArticle(article.id) 
         }
 
         render() {
             const {isOpen} = this.props;
+            if(!this.props.article) return null;
             return (
                 <div>
                     <h3>
@@ -53,4 +61,6 @@ import './transition.css';
         // }
     }
 
-    export default connect(null, {deleteArticles, loadArticle})(Article); 
+    export default connect((state, ownProps) => ({
+        article: state.articles.entities.get(ownProps.id)
+    }), {deleteArticles, loadArticle})(Article); 

@@ -1,18 +1,18 @@
 import React, {Component} from 'react'
 import Article from "./Article";
-import accordion from "../decorators/accordion";
+//import accordion from "../decorators/accordion";
 import { connect } from "react-redux";
 import { articlesFiltrate } from "../selectors";
 import { loadArticles } from "../AC";
 import { PropTypes } from "prop-types";
 import Loader from "./Loader";
 import { NavLink } from "react-router-dom";
-//import { findDOMNode } from "react-dom";
 
 class ArticleList extends Component {
 
     static propTypes = {
-        articles:PropTypes.array.isRequired
+        articles:PropTypes.array,
+        toogleOpen: PropTypes.func
     }
     componentDidMount() {
         const {loading, loaded,loadArticles} = this.props;
@@ -48,4 +48,4 @@ const decorator = connect((state, ownProps) => ({
         loading: state.articles.loading ,
         loaded: state.articles.loaded
     }), { loadArticles });
-export default decorator(accordion(ArticleList));
+export default decorator(ArticleList);

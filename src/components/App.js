@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import ArticleList from './ArticlesList'
+import Articles from './routes/Articles'
 import Select from 'react-select'
 import Counter from "./Counter";
 import DateFilter from "./DateFilter";
@@ -30,7 +30,7 @@ import 'react-select/dist/react-select.css'
                         <DateFilter />
                         <Route path = "/counter" component = {Counter} />
                         <Select options = {options} value = {this.state.selected} onChange = {this.changeSelection} multi />
-                        <Route path = "/articles" component = {ArticleList} />
+                        <Route path = "/articles" component = {Articles} />
                     </div>
                 </HashRouter>
             )
