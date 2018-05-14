@@ -5,7 +5,7 @@ import Counter from "./Counter";
 import DateFilter from "./DateFilter";
 import { connect } from "react-redux";
 import { mapToArr } from "../helpers";
-import { HashRouter, Route, Link, NavLink } from "react-router-dom";
+import { BrowserRouter, Route, Link, NavLink } from "react-router-dom";
 import 'react-select/dist/react-select.css'
 
     class App extends Component {
@@ -20,7 +20,7 @@ import 'react-select/dist/react-select.css'
                 value: article.id
             }));
             return (
-                <HashRouter>
+                <BrowserRouter>
                     <div>
                         <div>
                             <h2>Menu</h2>
@@ -32,7 +32,7 @@ import 'react-select/dist/react-select.css'
                         <Select options = {options} value = {this.state.selected} onChange = {this.changeSelection} multi />
                         <Route path = "/articles" component = {Articles} />
                     </div>
-                </HashRouter>
+                </BrowserRouter>
             )
         }
         

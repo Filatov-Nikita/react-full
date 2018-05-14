@@ -3,10 +3,19 @@ import ArticlesList from "../ArticlesList";
 import Article from "../Article";
 import { Route } from "react-router-dom";
 class Articles extends Component {
+    componentWillUnmount() {
+        console.log('unmointing');
+        
+    }
+    componentWillUpdate() {
+        console.log('updating');
+        
+    }
     render() {
         return (
             <div>
                 <ArticlesList />
+                <Route path = "/articles" render = {this.getHeader} exact />
                 <Route path = "/articles/:id" render = {this.getArticle} />
             </div>
         )
@@ -14,7 +23,10 @@ class Articles extends Component {
 
     getArticle = ({match}) => {
         const {id} = match.params;
-        return <Article id = {id} isOpen />
+        return <Article id = {id} isOpen key = {id}/>
+    }
+    getHeader = () => {
+        return <h2>Please select article</h2>
     }
 }
 

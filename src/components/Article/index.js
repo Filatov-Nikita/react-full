@@ -13,15 +13,13 @@ import { PropTypes } from "prop-types";
             id: PropTypes.string
         }
         componentDidMount() {
-            //const {loadArticle, article} = this.props
-            console.log(this.props);
-            
-            loadArticle(this.props.id) 
+            const {loadArticle, article, id} = this.props;
+            if (!article || (!article.text && !article.loading)) loadArticle(id)
         }
 
         render() {
-            const {isOpen} = this.props;
-            if(!this.props.article) return null;
+            const {isOpen, article} = this.props;
+            if(!article) return null;
             return (
                 <div>
                     <h3>
