@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import ArticlesList from "../ArticlesList";
 import Article from "../Article";
-import { Route } from "react-router-dom";
+import { Route, Link } from "react-router-dom";
 class Articles extends Component {
     componentWillUnmount() {
         console.log('unmointing');
@@ -26,7 +26,7 @@ class Articles extends Component {
         return <Article id = {id} isOpen key = {id}/>
     }
     getHeader = () => {
-        return <h2>Please select article</h2>
+        return <h2>Please select article <Link to = "/articles/new">new</Link></h2>
     }
 }
 

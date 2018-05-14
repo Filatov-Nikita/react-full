@@ -5,8 +5,10 @@ import Counter from "./Counter";
 import DateFilter from "./DateFilter";
 import { connect } from "react-redux";
 import { mapToArr } from "../helpers";
-import { BrowserRouter, Route, Link, NavLink } from "react-router-dom";
+import NewArticles from "./routes/NewArticles";
+import { BrowserRouter, Route, Link, NavLink, Switch } from "react-router-dom";
 import 'react-select/dist/react-select.css'
+import CommentsPage from './routes/CommentsPage'
 
     class App extends Component {
         state = {
@@ -28,9 +30,13 @@ import 'react-select/dist/react-select.css'
                             <div><NavLink activeStyle = {{color: 'red'}} to = "/articles">Articles</NavLink></div>
                         </div>
                         <DateFilter />
-                        <Route path = "/counter" component = {Counter} />
                         <Select options = {options} value = {this.state.selected} onChange = {this.changeSelection} multi />
-                        <Route path = "/articles" component = {Articles} />
+                         <Route path = "/counter" component = {Counter} />
+                        <Switch>
+                            <Route path = "/articles/new" component = {NewArticles} />
+                            <Route path = "/articles" component = {Articles} />  
+                            <Route path = '/comments/:page' component = {CommentsPage} />
+                        </Switch>
                     </div>
                 </BrowserRouter>
             )
