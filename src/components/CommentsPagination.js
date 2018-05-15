@@ -7,36 +7,39 @@ import {checkAndLoadComments} from '../AC'
 
 class CommetnsPagination extends Component {
     componentWillMount() {
-        this.props.checkAndLoadComments(this.props.page)
+      this.props.checkAndLoadComments(this.props.page)
     }
-    componentWillReceiveProps({ page, checkAndLoadComments }) {
-        checkAndLoadComments(page)
-      }
+    componentWillReceiveProps({page, checkAndLoadComments}) {
+        checkAndLoadComments(page);
+    }
     render() {
         const {total} = this.props
-          if (!total) return <Loader/>
+        if (!total) return <Loader/>
         return (
             <div>
-            {this.getCommentItems()}               
-            {this.getPaginator()}
+               {this.getCommetns()}
+               {this.getPaginator()}
             </div>
         )
     }
-    getCommentItems() {
-        const {comments, loading} = this.props
-        if (loading || !comments) return <Loader />
-        const commentItems = comments.map(id => <li key={id}><Comment id={id}/></li>)
-        return <ul>{commentItems}</ul>
-    }
 
-    getPaginator() {
-        const {total} = this.props
-        const items = []
-        for (let i = 1; i <= Math.floor((total - 1) / 5) + 1; i++) {
-            items.push(<li key={i}><NavLink to={`/comments/${i}`} activeStyle={{color: 'red'}}>{i}</NavLink></li>)
-        }
+    getCommetns() {
+        const {comments, loading} = this.props;
+        if(loading || !comments) return <Loader />
+        const items = comments.map((id) => {
+            return <li key = {id}><Comment id = {id} /></li>
+        });
         return <ul>{items}</ul>
     }
+    getPaginator() {
+        const {total} = this.props;
+        let items = [];
+        for(let i = 1; i <= Math.floor((total -1) / 5) + 1; i++) {
+            items.push(<li key = {i}><NavLink to = {`/comments/${i}`} activeStyle = {{color:'red'}}>{i}</NavLink></li>)
+        } 
+        return <ul>{items}</ul>
+    }
+
 }
 
 export default connect((state, { page }) => {

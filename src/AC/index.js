@@ -65,15 +65,13 @@ export function loadComments(articleId) {
 
 export function checkAndLoadComments(page) {
     return (dispatch, getState) => {
-        console.log(1234);
-        
-        const {comments: {pagination}} = getState()
-        if (pagination.getIn([page, 'loading']) || pagination.getIn([page, 'ids'])) return
-
+        const state = getState();
+        const {comments: {pagination}} = state;
+        if(pagination.getIn([page, 'loading']) || pagination.getIn([page, 'ids'])) return
         dispatch({
             type: LOAD_COMMENTS_FOR_PAGE,
-            payload: {page},
-            callAPI: `/api/comment?limit=5&offset=${(page - 1)  * 5}`
-        }) 
+            payload: {page}, 
+            callAPI: `/api/comment?limit=5&offset=${(page-1) * 5}`
+        });
     }
 }

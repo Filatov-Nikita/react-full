@@ -25,14 +25,14 @@ export default (commentsState = defaultState, action) => {
             }));
         case LOAD_COMMENTS + SUCCESS : 
             return commentsState.update('entities', entities => entities.merge(arrToMap(response, commentRecord)))
-        case LOAD_COMMENTS_FOR_PAGE + START:
-            return commentsState.setIn(['pagination', payload.page, 'loading'], true)
-        case LOAD_COMMENTS_FOR_PAGE + SUCCESS:
+        case LOAD_COMMENTS_FOR_PAGE + START : 
+            return commentsState.setIn(['pagination', payload.page, 'loading'], true);
+        case LOAD_COMMENTS_FOR_PAGE + SUCCESS : 
             return commentsState
                 .set('total', response.total)
                 .mergeIn(['entities'], arrToMap(response.records, commentRecord))
                 .setIn(['pagination', payload.page, 'ids'], response.records.map(comment => comment.id))
-                .setIn(['pagination', payload.page, 'loading'], false)
+                .setIn(['pagination', payload.page, 'loading'], false)   
     }
     
 
